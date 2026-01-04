@@ -1,0 +1,8 @@
+   90  git config --global user.name "Jay Dee"
+   91  git config --global user.email "jaydee@localhost.net"
+   92  git status
+   93  git diff
+   94  git diff README.md
+   95  git add README.md 
+   96  git commit -m "Test Commit for documentation"
+   97  git push origin main

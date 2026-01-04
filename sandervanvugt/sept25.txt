@@ -1,0 +1,328 @@
+    1  ssh-keygen
+    2  for i in control ansible1 ansible2; do ssh-copy-id $i; done
+    3  ansible -i inventory all -u ansible -m command -a "id"
+    4  vim inventory
+    5  ansible -i inventory all -u ansible -m command -a "id"
+    6  ansible -i inventory all -u ansible -b -K -m command -a "ls -l /root"
+    7  ansible -i inventory all -u student -k -b -K -m shell -a 'echo "ansible ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/ansible'
+    8  ansible -i inventory all -u ansible -b -K -m command -a "ls -l /root"
+    9  ansible -i inventory all -u ansible -b -m command -a "ls -l /root"
+   10  git clone https://github.com/sandervanvugt/rhce9
+   11  cd rhce9/
+   12  history
+   13  exit
+   14  history
+   15  sudo vim /etc/ssh/sshd_config
+   16  vim /etc/ansible/hosts
+   17  cd rhce9/
+   18  cp ../inventory .
+   19  vim ansible.cfg 
+   20  ansible all -m command -a "ls -l /root"
+   21  ansible --version
+   22  cd 
+   23  ansible --version
+   24  vim /etc/ansible/ansible.cfg 
+   25  cd rhce9/
+   26  ls
+   27  vim setupnewhost.yml 
+   28  podman login registry.redhat.io
+   29  podman pull registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
+   30  podman images
+   31  ansible-navigator images
+   32  ls
+   33  ls | grep http
+   34  vim install-httpd.yml 
+   35  ansible-navigator run install-httpd.yml 
+   36  ls
+   37  ls -lrt
+   38  less install-httpd-artifact-2025-09-22T15\:47\:07.983832+00\:00.json 
+   39  ansible-navigator collecitons
+   40  ansible-navigator collections
+   41  ansible-navigator images
+   42  ansible-navigator images --pp never
+   43  podman pull registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest
+   44  ansible-navigator images --pp never
+   45  ansible-navigator --eei registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest --pp never
+   46  ansible-navigator --eei registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest --pp never
+   47  cd ..
+   48  git clone https://github.com/sandervanvugt/ansiblebg
+   49  git clone https://github.com/sandervanvugt/ansible_ccat
+   50  cd ansible_ccat/
+   51  ls
+   52  ansible-navigator run enforce-selinux.yml --eei registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest --pp never
+   53  mkdir collections
+   54  ansible-galaxy collection install ansible.posix -p collections
+   55  ansible-navigator run enforce-selinux.yml --eei registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest --pp never
+   56  history
+   57  cd ../rhce9/
+   58  ansible-galaxy collection install community.crypto -p collections
+   59  ansible-galaxy collection list
+   60  ansible-navigator
+   61  vim ansible.cfg 
+   62  ansible-galaxy collection list
+   63  vim ansible.cfg 
+   64  ansible-galaxy collection list
+   65  ansible ansible1 -m setup | less
+   66  ls
+   67  cd ..
+   68  git clone https://github.com/sandervanvugt/ansiblefundamentals
+   69  cd ansiblefundamentals/
+   70  ls
+   71  vim variables_example.yaml 
+   72  ansible-playbook variables_example.yaml 
+   73  ansible-playbook -i ../rhce9/inventory variables_example.yaml 
+   74  vim variables_example.yaml 
+   75  ansible-playbook -i ../rhce9/inventory variables_example.yaml -e user=linda
+   76  vim variables_example.yaml 
+   77  vim myusers.yml
+   78  ansible-playbook -i ../rhce9/inventory variables_example.yaml
+   79  vim variables_example.yaml 
+   80  ansible-playbook -i ../rhce9/inventory variables_example.yaml
+   81  vim variables_example.yaml 
+   82  ansible-doc -l
+   83  ansible-doc -t 
+   84  ansible-doc -t keyword -l
+   85  ansible-doc -t keyword vars_files
+   86  ansible-doc -t help
+   87  mkdir host_vars
+   88  vim host_vars/ansible1
+   89  vim host_vars/ansible2
+   90  history
+   91  vim variables_example.yaml 
+   92  ansible-playbook -i ../rhce9/inventory variables_example.yaml
+   93  vim variables_example.yaml 
+   94  ansible-playbook -i ../rhce9/inventory variables_example.yaml
+   95  history
+   96  cd ../rhce9/
+   97  ls | grep register
+   98  ls -l | grep register
+   99  vim register.yml 
+  100  ansible-playbook register.yml 
+  101  vim register.yml 
+  102  ansible-playbook register.yml 
+  103  ansible-vault create sensitive-values
+  104  cat sensitive-values 
+  105  ansible-vault view sensitive-values 
+  106  ansible-vault edit sensitive-values 
+  107  ansible-vault --help
+  108  ansible-vault create secret.yml
+  109  grep secret.yml *
+  110  vim create-user.yml
+  111  ansible-doc user
+  112  vim create-user.yml
+  113  ansible-playbook create-user.yml 
+  114  ansible-playbook --ask-vault-pass create-user.yml 
+  115  ansible ansible1 -a "tail -1 /etc/shadow"
+  116  echo password > ../vault-pass
+  117  chmod 600 ../vault-pass 
+  118  ansible-playbook --vault-password-file=../vault-pass create-user.yml 
+  119  ansible ansible1 -m command -a "useradd bill"
+  120  ansible ansible1 -m user -a "name=bill"
+  121  history
+  122  vim facts.yml 
+  123  ansible-playbook facts.yml | less
+  124  ansible -m setup ansible1 | less
+  125  vim ipfact.yml 
+  126  ansible-playbook ipfact.yml 
+  127  vim ipfact.yml 
+  128  ansible-playbook ipfact.yml 
+  129  vim ipfact.yml 
+  130  ansible-playbook ipfact.yml 
+  131  vim ipfact.yml 
+  132  ansible-playbook ipfact.yml 
+  133  ansible-playbook facts.yml | less
+  134  ls
+  135  cd ..
+  136  find . -name "users-dictionary"
+  137  cd ansible_ccat/arrays/
+  138  ls
+  139  vim multi-list.yml 
+  140  vim vars/users-list
+  141  vim multi-dictionary.yml 
+  142  vim vars/users-dictionary
+  143  cd
+  144  history > /tmp/sept25.txt
+  145  ip a
+  146  ansible-playbook --help | less
+  147  ansible ansible1 -m setup | less
+  148  ls
+  149  cd rhce9/
+  150  ansible ansible1 -m setup | less
+  151  cd ../ansible_ccat/
+  152  ls
+  153  cd arrays/
+  154  ls
+  155  cat inventory 
+  156  rm inventory
+  157  vim inventory
+  158  vim multi-list.yml 
+  159  vim vars/users-list
+  160  ansible-playbook multi-list.yml 
+  161  ls
+  162  vim multi-dictionary.yml 
+  163  vim vars/users-dictionary
+  164  ansible-playbook multi-dictionary.yml 
+  165  vim vars/users-dictionary
+  166  vim multi-dictionary.yml 
+  167  vim vars/users-dictionary
+  168  ansible-playbook multi-dictionary.yml 
+  169  cd ..
+  170  cd ../rhce9/
+  171  vim newlocalfacts.yml 
+  172  vim localfacts.yml
+  173  find . -name "localfacts.fact"
+  174  cp lesson7/facts/localfacts.fact .
+  175  vim localfacts.fact 
+  176  ansible-playbook newlocalfacts.yml 
+  177  ansible ansible1 -m setup -a "filter=ansible_local"
+  178  vim localfacts.yml 
+  179  grep set_fact *
+  180  vim set-fact.yaml 
+  181  vim storage-advanced.yml 
+  182  vim get-diskname.yml 
+  183  vim loopservices.yml 
+  184  ansible-doc service
+  185  ansible-doc dnf
+  186  ansible-doc service
+  187  vim loopservices.yml 
+  188  ansible-playbook loopservices.yml 
+  189  vim loop-over-variable.yml 
+  190  vim loopvars.yml 
+  191  vim loop-over-variable.yml 
+  192  ansible loop-over-variable.yml 
+  193  ansible-playbook loop-over-variable.yml 
+  194  vim loopusers.yml 
+  195  ansible-playbook loopusers.yml 
+  196  vim distro.yml 
+  197  ansible-playbook distro.yml 
+  198  vim distro.yml 
+  199  ansible-playbook distro.yml 
+  200  vim distro.yml 
+  201  ansible-playbook distro.yml 
+  202  vim quicktest.yml 
+  203  ansible-playbook quicktest.yml 
+  204  vim quicktest.yml 
+  205  ansible-playbook quicktest.yml 
+  206  vim when_multiple.yml 
+  207  ansible-playbook when_multiple.yml 
+  208  vim when_multiple_complex.yml 
+  209  ansible-playbook when_multiple_complex.yml 
+  210  vim ifsize.yml 
+  211  ansible-playbook ifsize.yml 
+  212  vim ifsize.yml 
+  213  ansible-playbook ifsize.yml 
+  214  vim register.yml 
+  215  ansible-playbook register.yml 
+  216  vim register_command.yml 
+  217  ansible-playbook register_command.yml 
+  218  vim register_command.yml 
+  219  history
+  220  vim handlers.yml 
+  221  touch /tmp/index.html
+  222  ansible-playbook handlers.yml 
+  223  vim handlers.yml 
+  224  ansible-playbook handlers.yml 
+  225  ansible control -m file -a "name=/var/www/html/index.html state=absent"
+  226  ansible-playbook handlers.yml 
+  227  vim blocks.yml 
+  228  vim block2.yaml 
+  229  ansible-playbook block2.yaml 
+  230  vim failure.yml 
+  231  ansible-playbook failure.yml 
+  232  vim listing725.yaml 
+  233  ansible-playbook listing725.yaml 
+  234  ansible ansible1 -a whoami
+  235  vim changed.yml 
+  236  ansible-playbook changed.yml 
+  237  vim changed.yml 
+  238  ansible-playbook changed.yml 
+  239  vim includes-and-imports.yml 
+  240  vim tasks/firewall.yaml 
+  241  vim tasks/service.yaml 
+  242  ansible-playbook includes-and-imports.yml 
+  243  ansible-galaxy collection install ansible.posix
+  244  ansible-playbook includes-and-imports.yml 
+  245  vim imports.yml 
+  246  vim vsftpd.j2 
+  247  vim vsftpd.yml 
+  248  ansible-playbook vsftpd.yml 
+  249  vim vsftpd.yml 
+  250  ansible-playbook vsftpd.yml 
+  251  vim vsftpd.yml 
+  252  ansible-playbook vsftpd.yml 
+  253  vim vsftpd.yml 
+  254  vim vsftpd-template.yml 
+  255  ansible-playbook vsftpd-template.yml 
+  256  cat /etc/vsftpd/vsftpd.conf 
+  257  sudo cat /etc/vsftpd/vsftpd.conf 
+  258  vim hostsfile.yml 
+  259  vim hosts.j2 
+  260  vim hostsfile.yml 
+  261  ansible-playbook hostsfile.yml 
+  262  cat /etc/hosts
+  263  ansible ansible1 -a "hostnamectl hostname ansible1.example.com"
+  264  ansible ansible2 -a "hostnamectl hostname ansible2.example.com"
+  265  ansible 192.168.29.140 -a "hostnamectl hostname ansible2.example.com"
+  266  ssh ansible2
+  267  ssh 192.168.29.140
+  268  history
+  269  ansible-galaxy role install geerlingguy.nginx
+  270  cd ~/.ansible/roles/geerlingguy.nginx/
+  271  ls
+  272  cd tasks
+  273  ls
+  274  vim main.yml 
+  275  vim setup-RedHat.yml 
+  276  cd ~/rhce9/
+  277  ansible-galaxy role list
+  278  vim nginx-role.yml 
+  279  ansible-playbook nginx-role.yml 
+  280  ansible-galaxy role init myrole
+  281  ansible-galaxy role list
+  282  ls
+  283  mv myrole/ ~/.ansible/roles/
+  284  cd ~/.ansible/roles
+  285  ls
+  286  tree myrole
+  287  cd -
+  288  vim motd-role.yml 
+  289  cd -
+  290  ansible-galaxy init role motd
+  291  ansible-galaxy role init motd
+  292  cd tasks
+  293  cd motd/
+  294  vim tasks/main.yml 
+  295  ansible-doc copy
+  296  cd -
+  297  cd ~/rhce9/
+  298  ansible-playbook motd-role.yml 
+  299  sudo vim /etc/hosts
+  300  sudo dnf install -y rhel-system-roles
+  301  rpm -ql rhel-system-roles 
+  302  cd /usr/share/doc
+  303  ls
+  304  cd rhel-system-roles/
+  305  ls
+  306  cd selinux/
+  307  ls
+  308  cp example-selinux-playbook.yml ~/rhce9
+  309  cd ~/rhce9
+  310  vim example-selinux-playbook.yml 
+  311  ansible-playbook example-selinux-playbook.yml 
+  312  ls -lZd /web
+  313  vim assertstat.yml
+  314  vim assertsize.yml 
+  315  ansible-playbook assertsize
+  316  ansible-playbook assertsize.yml 
+  317  ./countdown 15
+  318  ls | grep stora
+  319  vim setup-storage-test.yml 
+  320  vim storage-step1.yml
+  321  ansible-playbook storage-step1.yml 
+  322  vim storage-step1.yml
+  323  vim storage-advanced.yml 
+  324  ansible-playbook storage-advanced.yml 
+  325  ansible-galaxy collection install community.general
+  326  vim storage-advanced.yml 
+  327  ansible-playbook storage-advanced.yml 
+  328  history > /tmp/sept25.txt
