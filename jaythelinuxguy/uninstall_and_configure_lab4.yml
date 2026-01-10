@@ -1,0 +1,14 @@
+#uninstall_and_configure_lab4.yml
+---
+- name: undo lab4
+  hosts: localhost
+  become: true
+  tasks:
+  - name: delete httpd pacakge
+    dnf:
+      name: httpd
+      state: absent
+  - name: remove index.html file
+    file: 
+      name: /var/www/html/index.html
+      state: absent

@@ -1,0 +1,37 @@
+#lab4.yml
+---
+- name: deploy httpd
+  hosts: localhost
+  become: true
+  tasks:
+    - name: install httpd
+      dnf:
+        name:
+          - httpd
+          - firewalld
+        state: latest
+
+    - name: create index.html file
+      copy:
+        content: "Welcome, this is the test file."
+        dest: /var/www/html/index.html
+
+    - name: enable httpd
+      service:
+       name: httpd
+       enabled: true
+       state: started
+
+    - name: enable firewalld
+      service:
+        name: firewalld
+        enabled: true
+        state: started
+
+    - name: open ports
+      ansible.posix.firewalld:
+        service: https
+        state: enabled
+        permanent: true
+        immediate: true
+
